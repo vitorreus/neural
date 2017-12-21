@@ -16,15 +16,16 @@ export class Layer{
 		}
 	}
 	activate(activation:number[]){
+		return  this.activateZ(activation).map(sigmoid);
+	}
+
+	activateZ(activation:number[]){
 		if (activation.length != this.weigths[0].length){
 			throw "Incompatible layer input size";
 			
 		}
 		return  Vector.add(
 				Matrix.multiply(this.weigths,activation),
-				this.bias)
-			.map(sigmoid) ;
-
-		
+				this.bias);
 	}
 }
