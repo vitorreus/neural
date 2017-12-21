@@ -25,8 +25,25 @@ export class Vector{
 		}
 		return result;
 	}
+
+	static cost(result:number[],expected:number[]){
+		return Vector.add(result, expected.map(inverse))
+			.map(square)
+			.reduce(sum,0);
+	}
 }
 
+export function inverse(x:number){
+	return -x;
+}
+
+export function square(x:number){
+	return Math.pow(x,2);
+}
+
+export function sum(a,b){
+	return a+b;
+}
 
 export function sigmoid(x:number): number{
 	return 1 / (1+ Math.pow( Math.E, -x))
