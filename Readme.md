@@ -1,3 +1,10 @@
+Neural network experiments
+==========================
+
+Implementation of a feedforward network that learns using backpropagation.
+
+Usage sample:
+```
 import {Tuple, Network} from "./Network"
 
 var trainingSet:Tuple[] = [
@@ -23,3 +30,4 @@ console.log("1,0:")
 console.log(network.activate([1,0]))
 console.log("1,1:")
 console.log(network.activate([1,1]))
+```
