@@ -16,6 +16,30 @@ export class Matrix{
 		return result;
 	}
 
+	static add(m1:number[][],m2:number[][]):number[][]{
+		var result:number[][] = []
+		for (var i = 0; i <m1.length; i++){
+			result.push(Vector.add(m1[i], m2[i]));
+		}
+		return result;
+	}
+
+	static subtract(m1:number[][],m2:number[][]):number[][]{
+		var result:number[][] = []
+		for (var i = 0; i <m1.length; i++){
+			result.push(Vector.subtract(m1[i], m2[i]));
+		}
+		return result;
+	}
+
+	static map(matrix:number[][], fun:(x:number)=>number):number[][]{
+		var result:number[][] = [];
+		for (var line of matrix){
+			result.push(line.map(fun));
+		}
+		return result
+	}
+
 	static transpose(matrix:number[][]):number[][]{
 		var newArray:number[][] = [],
 		    origArrayLength:number = matrix.length,
@@ -35,7 +59,7 @@ export class Matrix{
 }
 
 export class Vector{
-	static apply(v1:number[], v2:number[], fun:(n1:number,n2:number) => number):number[]{
+	static op(v1:number[], v2:number[], fun:(n1:number,n2:number) => number):number[]{
 		var result:number[] = [];
 		for (var i:number = 0; i < v1.length; i++){
 			result.push(fun(v1[i],v2[i]));

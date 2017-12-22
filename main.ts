@@ -1,10 +1,16 @@
 import {Layer} from "./Layer";
 import {sigmoid, sigmoidPrime, inverse, Vector, Matrix} from "./Math";
+import {LayerGradient} from "./LayerGradient"
 
 
-class LayerGradient {
-	weigths:number[][];
-	bias:number[];
+
+class Tuple {
+	activation: number[];
+	result: number[];
+	constructor(activation:number[] = [], result:number[] = []){
+		this.activation = activation;
+		this.result = result;
+	}
 }
 
 class Network{
@@ -21,6 +27,25 @@ class Network{
 			result = this.layers[i].activate(result);
 		}
 		return result;
+	}
+
+	learn(batch : Tuple[],eta:number){
+		var nabla:Layer[] = [];
+		for (var layer of this.layers){
+			nabla.push(new Layer(layer.weigths[0].length,layer.bias.length, ()=>0));
+		}
+		for ( var tuple of batch){
+			var deltas:LayerGradient[] = this.backprop(tuple.activation, tuple.result);
+			for (var i = 0; i < deltas.length; i++){
+				nabla[i].add(deltas[i]);
+			}
+		}
+		for (var i:number =0; i< this.layers.length; i++){
+			this.layers[i].weigths = Matrix.subtract(this.layers[i].weigths,
+				Matrix.map(nabla[i].weigths,(nw)=>(eta/batch.length)*nw));
+			this.layers[i].bias = Vector.subtract(this.layers[i].bias,
+				nabla[i].bias.map((nb)=>(eta/batch.length)*nb));
+		}
 	}
 
 	backprop(activation :number[],expectedOutput:number[]):LayerGradient[]{
@@ -68,5 +93,3 @@ class Network{
 function cost_derivative(output_activations:number[], y:number[]):number[]{
 	return Vector.add(output_activations,y.map(inverse))
 }
-
-console.log (new Network([3,2]).backprop([1,2,3],[0,1]));
