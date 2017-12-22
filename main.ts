@@ -80,7 +80,7 @@ class Network{
 				sp);
 			result[result.length-l].bias = delta;
 			result[result.length-l].weigths = delta.map((d:number):number[] =>
-				activations[this.layers.length-l-1].map((a:number):number => a*d)
+				activations[activations.length-l-1].map((a:number):number => a*d)
 			);
 
 		}
@@ -93,3 +93,25 @@ class Network{
 function cost_derivative(output_activations:number[], y:number[]):number[]{
 	return Vector.add(output_activations,y.map(inverse))
 }
+
+var trainingSet:Tuple[] = [
+	new Tuple([0,0],[1]),
+	new Tuple([0,1],[0]),
+	new Tuple([1,0],[0]),
+	new Tuple([1,1],[1])];
+
+console.log("Learning xor...")
+var network = new Network([2,2,1]);
+for (var i = 0; i < 1000; i++){
+	network.learn(trainingSet,10);
+}
+console.log("Done.")
+
+console.log("0,0:")
+console.log(network.activate([0,0]))
+console.log("0,1:")
+console.log(network.activate([0,1]))
+console.log("1,0:")
+console.log(network.activate([1,0]))
+console.log("1,1:")
+console.log(network.activate([1,1]))
