@@ -31,3 +31,10 @@ console.log(network.activate([1,0]))
 console.log("1,1:")
 console.log(network.activate([1,1]))
 ```
+
+Handwritten recognition demo:
+-----------------------------
+
+Run webpack and then open index.html
+Wait for the learning process to complete (folow the progress in console)
+Write a digit and see the result.
