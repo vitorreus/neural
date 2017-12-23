@@ -7,14 +7,17 @@
   "devDependencies": {
     "concurrently": "^3.5.1",
     "nodemon": "^1.14.0",
-    "typescript": "^2.6.2"
+    "ts-loader": "^3.2.0",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc main.ts",
     "tscw": "tsc --watch main.ts",
     "nodemon": "nodemon main.js",
-    "dev": "concurrently --kill-others \"npm run tscw\" \"npm run nodemon\""
+    "dev": "concurrently --kill-others \"npm run tscw\" \"npm run nodemon\"",
+    "webdev": "webpack --watch"
   },
   "author": "",
   "license": "ISC"
